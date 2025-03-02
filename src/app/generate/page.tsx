@@ -13,12 +13,12 @@ export default function GeneratePage() {
   return (
     <>
       <MainHeader fixed />
-      <main className="min-h-screen mt-12 pb-26 bg-custom-gray">
+      <main className="min-h-screen mt-12 pb-28 bg-custom-gray">
         <section className="relative max-w-6xl mx-auto px-4">
           <h1 className="py-11 text-3xl md:text-5xl font-extrabold text-center">
             Create Your QR Code Now
           </h1>
-          <CurvedArrow className="absolute -top-[6%] -left-[15%] rotate-90 z-20" />
+          <CurvedArrow className="hidden xl:block absolute top-[5%] -left-[15%] rotate-90 z-20" />
           <QRGeneratorMenu />
         </section>
       </main>

@@ -37,7 +37,7 @@ function InfoCard({
   return (
     <div className="flex flex-col items-center space-y-4 text-center">
       <div className="flex items-center justify-center">
-        <Icon className="h-22 w-22" />
+        <Icon className="h-[86px] w-[86px]" />
       </div>
       <h3 className="text-xl font-extrabold">{title}</h3>
       <p className="">{description}</p>
@@ -118,7 +118,7 @@ export function ProductInfoLayout() {
               Packed with everything you need in a QR Code Generator.
             </p>
           </div>
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 md:gap-12 lg:gap-16 mt-18">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 md:gap-12 lg:gap-16 mt-16">
             <InfoCard
               Icon={BarChart4}
               title="Track Scans & Analytics"
@@ -157,7 +157,7 @@ export function ProductInfoLayout() {
       </section>
 
       {/* FAQ Section */}
-      <section className="w-full py-6 md:py-10 lg:py-22 bg-custom-gray">
+      <section className="w-full py-6 md:py-10 lg:py-20 bg-custom-gray">
         <div className="px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <h2 className="text-2xl md:text-4xl font-extrabold text-center">
@@ -173,7 +173,7 @@ export function ProductInfoLayout() {
               </a>
             </p>
           </div>
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:gap-10 mt-12 mb-18">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:gap-10 mt-16 mb-16">
             {faqItems.map((item, index) => (
               <FAQItem key={index} question={item.question} answer={item.answer} />
             ))}
