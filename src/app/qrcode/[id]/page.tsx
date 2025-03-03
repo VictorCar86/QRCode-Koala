@@ -1,13 +1,15 @@
-import { getQRCodeById, incrementQRCodeScans } from "@/lib/firebase/actions";
+import {
+  getQRCodeById,
+  // incrementQRCodeScans
+} from "@/lib/firebase/actions";
 import { WebsiteQR } from "@/lib/types/firebase";
 import { redirect } from "next/navigation";
-// import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-export default async function QRCodeRedirectPage({
-  params,
-}: {
+type Props = {
   params: Promise<{ id: string }>;
-}) {
+};
+
+export default async function QRCodeRedirectPage({ params }: Props) {
   const { id } = await params;
 
   try {
@@ -22,13 +24,13 @@ export default async function QRCodeRedirectPage({
       return;
     }
 
-    try {
-      // Increment scan count
-      await incrementQRCodeScans(id);
-    } catch (error) {
-      // Log the error but don't fail the redirect
-      console.error("Error incrementing scan count:", error);
-    }
+    // try {
+    //   // Increment scan count
+    //   await incrementQRCodeScans(id);
+    // } catch (error) {
+    //   // Log the error but don't fail the redirect
+    //   console.error("Error incrementing scan count:", error);
+    // }
 
     // Handle different QR code types
     switch (type) {

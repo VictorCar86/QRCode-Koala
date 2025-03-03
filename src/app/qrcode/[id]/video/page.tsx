@@ -2,7 +2,11 @@ import { getQRCodeById } from "@/lib/firebase/actions";
 import { VideoQR } from "@/lib/types/firebase";
 import VideoPreview from "@/components/previews/VideoPreview";
 
-export default async function VideoQRLandingPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function VideoQRLandingPage({ params }: Props) {
   const { id } = await params;
   const { type, data } = await getQRCodeById(id);
 
