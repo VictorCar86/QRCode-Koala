@@ -18,13 +18,14 @@ import clsx from "clsx";
 import { toast } from "sonner";
 import QRCode from "react-qr-code";
 import { usePathname, useRouter } from "next/navigation";
+import { useQRState } from "@/lib/states/qr-state";
 
 interface QRContentConfigProps {
   children: React.ReactNode;
   PreviewerComponent: React.ComponentType;
   isFormValid: boolean;
   QRCodeValue: string;
-  isCreating?: boolean;
+  handleCreateQRCode: () => void;
 }
 
 export default function QRContentConfig({
@@ -32,8 +33,9 @@ export default function QRContentConfig({
   PreviewerComponent,
   isFormValid,
   QRCodeValue,
-  isCreating = false,
+  handleCreateQRCode,
 }: QRContentConfigProps) {
+  const { isCreating } = useQRState();
   const [currentTab, setCurrentTab] = useState<SwitchTabsType>("PREVIEW");
   const pathname = usePathname();
   const router = useRouter();
@@ -46,6 +48,7 @@ export default function QRContentConfig({
         className={clsx("mx-auto", {
           "hidden xl:inline-flex": !showOnMobile,
         })}
+        onClick={handleCreateQRCode}
         disabled={!isFormValid}
         disabledCallback={() => {
           toast.error(
@@ -129,6 +132,7 @@ export default function QRContentConfig({
                 )}
                 onClick={() => {
                   if (isFormValid) {
+                    handleCreateQRCode();
                     router.push(`${pathname}/download`);
                   }
                 }}

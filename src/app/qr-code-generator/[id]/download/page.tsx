@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -7,8 +8,12 @@ import {
 import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 import GenerateHeader from "@/components/GenerateHeader";
+import QRCode from "react-qr-code";
+import { useQRState } from "@/lib/states/qr-state";
 
 export default function QRDownloadPage() {
+  const { qrCodeValue } = useQRState();
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -79,7 +84,7 @@ export default function QRDownloadPage() {
                   terms
                 </Link>{" "}
                 of service and{" "}
-                <Link href="/privacy" className="underline">
+                <Link href="/privacy-policy" className="underline">
                   privacy policy
                 </Link>
                 .
@@ -104,19 +109,31 @@ export default function QRDownloadPage() {
           </div>
 
           {/* Right Column - QR Preview */}
-          <div className="bg-white rounded-lg shadow-sm p-8">
-            <div className="flex items-center gap-2 mb-4">
-              <Check className="w-6 h-6 text-green-500" />
-              <h2 className="text-2xl font-bold">Your QR Code Is Ready</h2>
+          <div className="text-center bg-white rounded-lg shadow-sm p-8">
+            <div className="flex justify-center items-center gap-2 mb-4">
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 256 256"
+                height="35"
+                width="35"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path>
+              </svg>
+              <h2 className="text-xl md:text-3xl font-bold text-center">
+                Your QR Code Is Ready
+              </h2>
             </div>
             <p className="text-gray-600 mb-8">Scan it now to see how it works!</p>
 
             <div className="relative">
               {/* QR Code Preview Placeholder */}
-              <div className="aspect-square w-full max-w-md mx-auto bg-gray-100 rounded-lg" />
+              <QRCode className="mx-auto" value={qrCodeValue} />
 
               {/* Decorative Arrow */}
-              <div className="hidden xl:block absolute -right-20 top-0 rotate-180">
+              <div className="hidden xl:block absolute -right-16 top-0 rotate-180">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 1200 1200"
@@ -128,7 +145,7 @@ export default function QRDownloadPage() {
                 </svg>
               </div>
 
-              <p className="text-sm text-center text-gray-600 mt-8">
+              <p className="text-sm text-gray-600 mt-8">
                 You can now scan your QR code with your phone to see it in action
               </p>
             </div>

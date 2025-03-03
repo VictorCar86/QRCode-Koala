@@ -172,42 +172,46 @@ const VideoPreview = (props: VideoPreviewProps) => {
                       role="button"
                       tabIndex={0}
                     >
-                      <div className="flex gap-3 items-center justify-between p-2 rounded-md bg-white border border-gray-300">
-                        <div className="flex gap-3 items-center justify-start w-9/12 flex-1">
-                          <Image
-                            width={100}
-                            height={100}
-                            src={social.icon}
-                            alt={social.name}
-                            className="w-8 h-8 object-cover rounded-md"
-                          />
-                          <div className="text-left">
-                            <span className="text-sm font-medium block truncate">
-                              {social.name}
-                            </span>
-                            <span className="text-xs block truncate">Social Account</span>
+                      <a href={social.url} target="_blank">
+                        <div className="flex gap-3 items-center justify-between p-2 rounded-md bg-white border border-gray-300">
+                          <div className="flex gap-3 items-center justify-start w-9/12 flex-1">
+                            <Image
+                              width={100}
+                              height={100}
+                              src={social.icon}
+                              alt={social.name}
+                              className="w-8 h-8 object-cover rounded-md"
+                            />
+                            <div className="text-left">
+                              <span className="text-sm font-medium block truncate">
+                                {social.name}
+                              </span>
+                              <span className="text-xs block truncate">
+                                Social Account
+                              </span>
+                            </div>
+                          </div>
+                          <div className="w-5 flex-0 flex justify-end">
+                            <svg
+                              stroke="currentColor"
+                              fill="currentColor"
+                              strokeWidth="0"
+                              viewBox="0 0 512 512"
+                              height="20"
+                              width="20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill="none"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="48"
+                                d="M184 112l144 144-144 144"
+                              />
+                            </svg>
                           </div>
                         </div>
-                        <div className="w-5 flex-0 flex justify-end">
-                          <svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            strokeWidth="0"
-                            viewBox="0 0 512 512"
-                            height="20"
-                            width="20"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fill="none"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="48"
-                              d="M184 112l144 144-144 144"
-                            />
-                          </svg>
-                        </div>
-                      </div>
+                      </a>
                     </div>
                   ))}
                 </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import WaveBG from "@/components/utils/WaveBG";
 import { ApplicationPageData } from "@/lib/types/application";
@@ -173,7 +175,6 @@ export default function ApplicationPreview(props: ApplicationPreviewProps) {
 
                 {/* Platform Links */}
                 {platformLinks.map((link) => {
-                  console.log("🚀 ~ {platformLinks.map ~ link:", link);
                   const platform = platformsForLinks.find((p) => p.id === link.platform);
                   if (!platform) return null;
 

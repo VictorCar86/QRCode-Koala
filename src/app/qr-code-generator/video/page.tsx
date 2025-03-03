@@ -20,7 +20,7 @@ import {
 } from "@/lib/types/video";
 import { createQRCode } from "@/lib/firebase/actions";
 import { VideoQR } from "@/lib/types/firebase";
-// import { useRouter } from "next/navigation";
+import { useQRState } from "@/lib/states/qr-state";
 
 // Validation schemas
 const videoSchema = z.object({
@@ -86,9 +86,7 @@ export default function VideoPage() {
   const [formData, setFormData] = useState<VideoPageData>(defaultFormData);
   const [qrName, setQrName] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const [qrCodeValue, setQrCodeValue] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
-  console.log("🚀 ~ VideoPage ~ isCreating:", isCreating);
+  const { qrCodeValue, setQrCodeValue, setIsCreating } = useQRState();
   // const router = useRouter();
 
   // Separate validation from QR code creation
@@ -104,24 +102,23 @@ export default function VideoPage() {
   };
 
   // Handle QR code creation separately
-  const handleCreateQRCode = async (data: VideoPageData) => {
+  const handleCreateQRCode = async () => {
     setIsCreating(true);
     try {
       const { qrCodeUrl } = await createQRCode<VideoQR>({
         type: "video",
-        name: data.pageTitle || "Untitled Video QR",
-        videos: data.videos,
-        showDirectly: data.showDirectly,
-        autoPlay: data.autoPlay,
-        companyName: data.companyName,
-        pageTitle: data.pageTitle,
-        pageDescription: data.pageDescription,
-        design: data.design,
-        fonts: data.fonts,
-        // buttons: data.buttons,
-        // socialNetworks: data.socialNetworks,
+        name: formData.pageTitle || "Untitled Video QR",
+        videos: formData.videos,
+        showDirectly: formData.showDirectly,
+        autoPlay: formData.autoPlay,
+        companyName: formData.companyName,
+        pageTitle: formData.pageTitle,
+        pageDescription: formData.pageDescription,
+        design: formData.design,
+        fonts: formData.fonts,
+        buttons: formData.buttons,
+        socialNetworks: formData.socialNetworks,
       });
-
       setQrCodeValue(qrCodeUrl);
       return qrCodeUrl;
     } catch (error) {
@@ -140,17 +137,8 @@ export default function VideoPage() {
     autoPlay: boolean;
   }) => {
     const newFormData = { ...formData, ...data };
-    const isValid = validateForm(newFormData);
+    validateForm(newFormData);
     setFormData(newFormData);
-
-    if (isValid) {
-      try {
-        await handleCreateQRCode(newFormData);
-      } catch (error) {
-        // Handle error (maybe show a toast notification)
-        console.error("Failed to update QR code:", error);
-      }
-    }
   };
 
   const handleVideoInfoChange = async (data: {
@@ -160,58 +148,26 @@ export default function VideoPage() {
     buttons: ButtonItem[];
   }) => {
     const newFormData = { ...formData, ...data };
-    const isValid = validateForm(newFormData);
+    validateForm(newFormData);
     setFormData(newFormData);
-
-    if (isValid) {
-      try {
-        await handleCreateQRCode(newFormData);
-      } catch (error) {
-        console.error("Failed to update QR code:", error);
-      }
-    }
   };
 
   const handleSocialNetworksChange = async (socialNetworks: SocialNetworkItem[]) => {
     const newFormData = { ...formData, socialNetworks };
-    const isValid = validateForm(newFormData);
+    validateForm(newFormData);
     setFormData(newFormData);
-
-    if (isValid) {
-      try {
-        await handleCreateQRCode(newFormData);
-      } catch (error) {
-        console.error("Failed to update QR code:", error);
-      }
-    }
   };
 
   const handleDesignChange = async (design: DesignConfig) => {
     const newFormData = { ...formData, design };
-    const isValid = validateForm(newFormData);
+    validateForm(newFormData);
     setFormData(newFormData);
-
-    if (isValid) {
-      try {
-        await handleCreateQRCode(newFormData);
-      } catch (error) {
-        console.error("Failed to update QR code:", error);
-      }
-    }
   };
 
   const handleFontsChange = async (fonts: FontConfig) => {
     const newFormData = { ...formData, fonts };
-    const isValid = validateForm(newFormData);
+    validateForm(newFormData);
     setFormData(newFormData);
-
-    if (isValid) {
-      try {
-        await handleCreateQRCode(newFormData);
-      } catch (error) {
-        console.error("Failed to update QR code:", error);
-      }
-    }
   };
 
   const PreviewComponent = () => (
@@ -228,22 +184,12 @@ export default function VideoPage() {
     />
   );
 
-  // Generate QR code value based on form data
-  // const generateQRValue = (data: VideoPageData) => {
-  //   const qrData = {
-  //     type: "video",
-  //     ...data,
-  //   };
-  //   // console.log("🚀 ~ generateQRValue ~ qrData:", qrData);
-  //   return JSON.stringify(qrData);
-  // };
-
   return (
     <QRContentConfig
       PreviewerComponent={PreviewComponent}
       isFormValid={isFormValid}
       QRCodeValue={qrCodeValue}
-      isCreating={isCreating}
+      handleCreateQRCode={handleCreateQRCode}
     >
       <VideoForm
         defaultOpen

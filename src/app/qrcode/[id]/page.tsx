@@ -11,12 +11,9 @@ type Props = {
 
 export default async function QRCodeRedirectPage({ params }: Props) {
   const { id } = await params;
-  // console.log("🚀 ~ QRCodeRedirectPage ~ id:", id);
 
   // Get the QR code data
   const { type, data } = await getQRCodeById(id);
-  // console.log("🚀 ~ QRCodeRedirectPage ~ type:", type);
-  // console.log("🚀 ~ QRCodeRedirectPage ~ data:", data);
 
   if (!data) {
     console.error("QR code not found:", id);
@@ -39,9 +36,9 @@ export default async function QRCodeRedirectPage({ params }: Props) {
       redirect(websiteData.websiteURL);
       break;
 
-    case "wifi":
-      redirect(`/qrcode/${id}/wifi`);
-      break;
+    // case "wifi":
+    //   redirect(`/qrcode/${id}/wifi`);
+    //   break;
 
     case "video":
       redirect(`/qrcode/${id}/video`);

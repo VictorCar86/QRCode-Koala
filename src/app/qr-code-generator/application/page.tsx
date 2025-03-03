@@ -13,18 +13,20 @@ import {
   applicationPageSchema,
   defaultFormData,
 } from "@/lib/types/application";
+import { useQRState } from "@/lib/states/qr-state";
+import { createQRCode } from "@/lib/firebase/actions";
+import { ApplicationQR } from "@/lib/types/firebase";
 
 export default function ApplicationQRCodeGenerator() {
   const [formData, setFormData] = useState<ApplicationPageData>(defaultFormData);
   const [qrName, setQrName] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const [qrCodeValue, setQrCodeValue] = useState("");
+  const { qrCodeValue, setQrCodeValue, setIsCreating } = useQRState();
 
   const validateForm = (data: ApplicationPageData) => {
     try {
       applicationPageSchema.parse(data);
       setIsFormValid(true);
-      setQrCodeValue(generateQRValue(data));
       return true;
     } catch {
       setIsFormValid(false);
@@ -68,12 +70,23 @@ export default function ApplicationQRCodeGenerator() {
   );
 
   // Generate QR code value based on form data
-  const generateQRValue = (data: ApplicationPageData) => {
-    const qrData = {
-      type: "application",
-      ...data,
-    };
-    return JSON.stringify(qrData);
+  const handleCreateQRCode = async () => {
+    setIsCreating(true);
+    try {
+      const { qrCodeUrl } = await createQRCode<ApplicationQR>({
+        type: "application",
+        name: qrName || formData.appInfo.appName,
+        appInfo: formData.appInfo,
+        platformLinks: formData.platformLinks,
+        design: formData.design,
+        fonts: formData.fonts,
+      });
+      setQrCodeValue(qrCodeUrl);
+    } catch (error) {
+      console.error("Error creating application QR:", error);
+    } finally {
+      setIsCreating(false);
+    }
   };
 
   return (
@@ -81,6 +94,7 @@ export default function ApplicationQRCodeGenerator() {
       PreviewerComponent={PreviewComponent}
       isFormValid={isFormValid}
       QRCodeValue={qrCodeValue}
+      handleCreateQRCode={handleCreateQRCode}
     >
       <AppInformationForm
         defaultOpen

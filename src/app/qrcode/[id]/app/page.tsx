@@ -1,6 +1,6 @@
 import { getQRCodeById } from "@/lib/firebase/actions";
-import { VideoQR } from "@/lib/types/firebase";
-import VideoPreview from "@/components/previews/VideoPreview";
+import { ApplicationQR } from "@/lib/types/firebase";
+import ApplicationPreview from "@/components/previews/ApplicationPreview";
 import QRCodePreviewer from "@/components/previews/QRCodePreviewer";
 
 type Props = {
@@ -11,24 +11,19 @@ export default async function VideoQRLandingPage({ params }: Props) {
   const { id } = await params;
   const { type, data } = await getQRCodeById(id);
 
-  if (type !== "video" || !data) {
+  if (type !== "application" || !data) {
     return <div>Invalid QR code</div>;
   }
 
-  const videoData = data as VideoQR;
+  const videoData = data as ApplicationQR;
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
       <QRCodePreviewer showOnMobile noPhone>
-        <VideoPreview
-          videos={videoData.videos}
-          bgPrimaryColor={videoData.design.primaryColor}
-          bgSecondaryColor={videoData.design.secondaryColor}
-          companyName={videoData.companyName}
-          pageTitle={videoData.pageTitle}
-          pageDescription={videoData.pageDescription}
-          buttons={videoData.buttons}
-          socialNetworks={videoData.socialNetworks}
+        <ApplicationPreview
+          appInfo={videoData.appInfo}
+          platformLinks={videoData.platformLinks}
+          design={videoData.design}
           fonts={videoData.fonts}
         />
       </QRCodePreviewer>

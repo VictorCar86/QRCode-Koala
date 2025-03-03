@@ -54,6 +54,15 @@ export interface VideoQR extends BaseQRCode {
     descriptionFont: string;
     descriptionFontSize: string;
   };
+  buttons: {
+    text: string;
+    url: string;
+  }[];
+  socialNetworks: {
+    name: string;
+    icon: string;
+    url: string;
+  }[];
 }
 
 export interface ApplicationQR extends BaseQRCode {
