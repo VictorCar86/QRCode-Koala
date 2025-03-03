@@ -3,14 +3,8 @@ import { WebsiteQR } from "@/lib/types/firebase";
 import { redirect } from "next/navigation";
 // import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function QRCodeRedirectPage(props: PageProps) {
-  const { id } = await props.params;
+export default async function QRCodeRedirectPage({ params }: { params: { id: string } }) {
+  const { id } = await params;
 
   try {
     // Get the QR code data
