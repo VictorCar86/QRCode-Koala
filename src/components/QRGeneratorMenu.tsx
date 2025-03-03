@@ -6,8 +6,15 @@ import { ChevronRight } from "lucide-react";
 import { QRCreateOptions } from "@/lib/placeholders/QRCreateOptions";
 import QRCodePreviewer from "./previews/QRCodePreviewer";
 import WifiPreview from "./previews/WifiPreview";
+import WebsitePreview from "./previews/WebsitePreview";
 export default function QRGeneratorMenu() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
+
+  const PreviewComponent = () => {
+    if (selectedType === "wifi") return <WifiPreview />;
+    if (selectedType === "website") return <WebsitePreview />;
+    return null;
+  };
 
   return (
     <div className="flex xl:justify-between justify-center items-center gap-16">
@@ -40,7 +47,7 @@ export default function QRGeneratorMenu() {
       </div>
 
       {/* QR Code Preview */}
-      <QRCodePreviewer>{selectedType === "wifi" && <WifiPreview />}</QRCodePreviewer>
+      <QRCodePreviewer>{PreviewComponent()}</QRCodePreviewer>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import WaveBG from "../utils/WaveBG";
 const WifiPreview = ({ networkName }: { networkName?: string }) => {
   return (
     <div className="relative max-w-xs mx-auto h-full">
-      <WaveBG className="absolute -top-10 text-black" />
+      <WaveBG className="absolute -top-10" />
       {/* Phone frame */}
       <div className="absolute top-0 bottom-0 grid place-content-center h-full overflow-hidden pt-4 pb-6 px-6 shadow-xl">
         {/* Wi-Fi content section */}

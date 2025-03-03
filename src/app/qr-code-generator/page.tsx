@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import MainHeader from "@/components/MainHeader";
+import GenerateHeader from "@/components/GenerateHeader";
 import QRGeneratorMenu from "@/components/QRGeneratorMenu";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function QRCodeGenerator() {
   return (
     <>
-      <MainHeader />
+      <GenerateHeader />
       <main className="min-h-screen pb-20 bg-custom-gray">
         <section className="max-w-6xl mx-auto px-4">
           <h1 className="text-xl md:text-2xl font-bold py-3 md:py-5">

@@ -22,7 +22,7 @@ export default function QRCodePreviewer({
       )}
       style={{ aspectRatio: "276/560" }}
     >
-      <div className="w-full h-full pt-[30px] text-center rounded-b-[38px] bg-white relative mobile-scrollbar overflow-hidden">
+      <div className="w-full h-full pt-[30px] text-center rounded-t-xl rounded-b-[38px] bg-white relative mobile-scrollbar overflow-hidden">
         {!children ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             <Image
