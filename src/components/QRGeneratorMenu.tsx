@@ -7,12 +7,17 @@ import { QRCreateOptions } from "@/lib/placeholders/QRCreateOptions";
 import QRCodePreviewer from "./previews/QRCodePreviewer";
 import WifiPreview from "./previews/WifiPreview";
 import WebsitePreview from "./previews/WebsitePreview";
+import VideoPreview from "./previews/placeholders/CleanVideoPreview";
+import CleanApplicationPreview from "./previews/placeholders/CleanApplicationPreview";
+
 export default function QRGeneratorMenu() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const PreviewComponent = () => {
     if (selectedType === "wifi") return <WifiPreview />;
     if (selectedType === "website") return <WebsitePreview />;
+    if (selectedType === "video") return <VideoPreview />;
+    if (selectedType === "application") return <CleanApplicationPreview />;
     return null;
   };
 

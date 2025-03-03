@@ -17,12 +17,14 @@ import SwitchTabs, { SwitchTabsType } from "@/components/ui/switch-tabs";
 import clsx from "clsx";
 import { toast } from "sonner";
 import QRCode from "react-qr-code";
+import { usePathname, useRouter } from "next/navigation";
 
 interface QRContentConfigProps {
   children: React.ReactNode;
   PreviewerComponent: React.ComponentType;
   isFormValid: boolean;
   QRCodeValue: string;
+  isCreating?: boolean;
 }
 
 export default function QRContentConfig({
@@ -30,8 +32,11 @@ export default function QRContentConfig({
   PreviewerComponent,
   isFormValid,
   QRCodeValue,
+  isCreating = false,
 }: QRContentConfigProps) {
   const [currentTab, setCurrentTab] = useState<SwitchTabsType>("PREVIEW");
+  const pathname = usePathname();
+  const router = useRouter();
 
   const QRMainPreview = ({ showOnMobile }: { showOnMobile?: boolean }) => (
     <>
@@ -52,7 +57,11 @@ export default function QRContentConfig({
         {currentTab === "PREVIEW" && <PreviewerComponent />}
         {currentTab === "QR" && (
           <section className={"w-full h-full grid place-content-center"}>
-            <QRCode className="px-8" value={QRCodeValue} />
+            {isCreating ? (
+              <div>Generating QR Code...</div>
+            ) : (
+              QRCodeValue && <QRCode className="px-8" value={QRCodeValue} />
+            )}
           </section>
         )}
       </QRCodePreviewer>
@@ -72,7 +81,7 @@ export default function QRContentConfig({
               {/* Accordion Options */}
               {children}
             </div>
-            <div className="flex flex-col gap-4 pt-4">
+            <div className="hidden xl:flex flex-col gap-4 pt-4 sticky top-4 h-fit">
               <QRMainPreview />
             </div>
           </div>
@@ -109,7 +118,7 @@ export default function QRContentConfig({
                   </DialogContent>
                 </Dialog>
               </div>
-              <Link
+              <Button
                 className={clsx(
                   "inline-flex items-center justify-center gap-2 h-10 px-8 py-2 whitespace-nowrap text-xs transition-all text-white rounded cursor-pointer font-light",
                   {
@@ -118,11 +127,15 @@ export default function QRContentConfig({
                     "bg-black hover:bg-primary/90": isFormValid,
                   },
                 )}
-                href={isFormValid ? "/" : "#"}
+                onClick={() => {
+                  if (isFormValid) {
+                    router.push(`${pathname}/download`);
+                  }
+                }}
               >
                 Next
                 <ChevronRight className="w-4 h-4" />
-              </Link>
+              </Button>
             </li>
           </ul>
         </nav>

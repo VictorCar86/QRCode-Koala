@@ -40,7 +40,7 @@ export function StepsNavigation({ className }: StepsNavigationProps) {
     if (!isValidQRType) return 1;
 
     if (pathname?.match(/^\/qr-code-generator\/[^/]+$/)) return 2;
-    if (pathname?.match(/^\/qr-code-generator\/[^/]+\/design$/)) return 3;
+    if (pathname?.match(/^\/qr-code-generator\/[^/]+\/design$/)) return 4; // TODO: change to 3 ~ design
     if (pathname?.match(/^\/qr-code-generator\/[^/]+\/download$/)) return 4;
 
     return 1;
@@ -57,8 +57,8 @@ export function StepsNavigation({ className }: StepsNavigationProps) {
     switch (step.id) {
       case 2:
         return `${step.href}/${qrType}`;
-      case 3:
-        return `${step.href}/${qrType}/design`;
+      // case 3:
+      //   return `${step.href}/${qrType}/design`;
       case 4:
         return `${step.href}/${qrType}/download`;
       default:

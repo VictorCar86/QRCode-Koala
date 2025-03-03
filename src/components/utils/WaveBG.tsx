@@ -6,18 +6,9 @@ interface WaveBGProps extends SVGProps<SVGSVGElement> {
   bgColor?: string;
 }
 
-const WaveBG = ({
-  topColor = "#000000",
-  bottomColor = "#000000",
-  bgColor = "#000000",
-  ...props
-}: WaveBGProps) => {
+const WaveBG = ({ topColor, bottomColor, bgColor, ...props }: WaveBGProps) => {
   // Generate a unique ID for the gradient
   const gradientId = `wave-gradient-${Math.random().toString(36).slice(2)}`;
-  if (bgColor) {
-    topColor = bgColor;
-    bottomColor = bgColor;
-  }
 
   return (
     <svg
@@ -28,8 +19,8 @@ const WaveBG = ({
     >
       <defs>
         <linearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
-          <stop offset="5%" stopColor={topColor} />
-          <stop offset="95%" stopColor={bottomColor} />
+          <stop offset="5%" stopColor={topColor || bgColor} />
+          <stop offset="95%" stopColor={bottomColor || bgColor} />
         </linearGradient>
       </defs>
       <path

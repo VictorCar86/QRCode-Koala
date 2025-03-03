@@ -8,15 +8,21 @@ import AccordionForm from "@/components/ui/accordion-form";
 interface QRNameFormProps {
   qrName: string;
   onQrNameChange: (name: string) => void;
+  defaultOpen?: boolean;
 }
 
-export default function QRNameForm({ qrName, onQrNameChange }: QRNameFormProps) {
+export default function QRNameForm({
+  qrName,
+  onQrNameChange,
+  defaultOpen,
+}: QRNameFormProps) {
   return (
     <AccordionForm
       id="qr-name"
       icon={QrCode}
       title="Name of the QR Code"
       subtitle="Give your QR code a name."
+      defaultOpen={defaultOpen}
     >
       <div className="bg-gray-100 border border-gray-300 p-3 rounded-md">
         <Label
