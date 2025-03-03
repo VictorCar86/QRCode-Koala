@@ -61,7 +61,7 @@ const videoPageSchema = z.object({
   }),
 });
 
-export const defaultFormData: VideoPageData = {
+const defaultFormData: VideoPageData = {
   videos: [],
   showDirectly: false,
   autoPlay: false,
