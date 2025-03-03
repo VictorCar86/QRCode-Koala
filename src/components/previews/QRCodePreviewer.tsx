@@ -2,14 +2,16 @@ import Image from "next/image";
 import { SignalHigh, BatteryFull, Wifi } from "lucide-react";
 import IphoneSVGImage from "../utils/IphoneSVGImage";
 import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 export default function QRCodePreviewer({
   children,
   showOnMobile = false,
+  noPhone = false,
 }: {
   children: React.ReactNode;
-  selectedType?: string;
   showOnMobile?: boolean;
+  noPhone?: boolean;
 }) {
   return (
     <div
@@ -18,11 +20,19 @@ export default function QRCodePreviewer({
         {
           "hidden xl:flex": !showOnMobile,
           flex: showOnMobile,
+          "scale-[1.35]": noPhone,
         },
       )}
       style={{ aspectRatio: "276/560" }}
     >
-      <div className="w-full h-full pt-[30px] text-center rounded-t-xl rounded-b-[38px] bg-white relative mobile-scrollbar overflow-hidden">
+      <div
+        className={cn(
+          "w-full h-full pt-[30px] text-center bg-white relative mobile-scrollbar overflow-hidden",
+          {
+            "rounded-t-xl rounded-b-[38px]": !noPhone,
+          },
+        )}
+      >
         {!children ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             <Image
@@ -37,17 +47,21 @@ export default function QRCodePreviewer({
           children
         )}
       </div>
-      <div className="absolute top-5 left-8 right-8 flex items-center justify-between z-10">
-        <span className="text-xs font-bold">9:41</span>
-        <div className="flex gap-1 items-center">
-          <SignalHigh size={16} />
-          <Wifi size={16} />
-          <BatteryFull size={16} />
-        </div>
-      </div>
-      <div className="absolute w-full h-full inset-0 pointer-events-none flex z-10">
-        <IphoneSVGImage />
-      </div>
+      {!noPhone ? (
+        <>
+          <div className="absolute top-5 left-8 right-8 flex items-center justify-between z-10">
+            <span className="text-xs font-bold">9:41</span>
+            <div className="flex gap-1 items-center">
+              <SignalHigh size={16} />
+              <Wifi size={16} />
+              <BatteryFull size={16} />
+            </div>
+          </div>
+          <div className="absolute w-full h-full inset-0 pointer-events-none flex z-10">
+            <IphoneSVGImage />
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
