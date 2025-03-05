@@ -16,7 +16,7 @@ export default function GenerateHeader() {
           />
           <span className="sr-only">QR Koala</span>
         </Link>
-        <StepsNavigation />
+        <StepsNavigation className="hidden md:flex" />
       </div>
     </header>
   );

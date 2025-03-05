@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import QRCode from "react-qr-code";
 import { usePathname, useRouter } from "next/navigation";
 import { useQRState } from "@/lib/states/qr-state";
+import { StepsNavigation } from "./StepsNavigation";
 
 interface QRContentConfigProps {
   children: React.ReactNode;
@@ -75,6 +76,7 @@ export default function QRContentConfig({
     <>
       <GenerateHeader />
       <main className="min-h-screen pb-20 bg-custom-gray">
+        <StepsNavigation className="sm:hidden" />
         <section className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between">
             <div className="flex flex-col gap-4 w-full xl:max-w-[720px]">

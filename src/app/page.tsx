@@ -10,7 +10,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="flex-1">
-        <div className="w-full py-12 md:py-24 bg-custom-gray">
+        <div className="w-full pb-16 pt-24 md:py-28 bg-custom-gray">
           <div className="px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <h1 className="text-3xl md:text-6xl font-extrabold text-center">

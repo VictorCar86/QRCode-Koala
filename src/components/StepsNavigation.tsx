@@ -67,13 +67,18 @@ export function StepsNavigation({ className }: StepsNavigationProps) {
   };
 
   return (
-    <nav className={cn("flex flex-1 items-center justify-center space-x-2", className)}>
+    <nav
+      className={cn(
+        "grid grid-cols-2 gap-2 sm:gap-0 sm:flex flex-1 items-center justify-center space-x-2 py-2",
+        className,
+      )}
+    >
       {steps.map((step, index) => (
-        <div key={step.id} className="flex items-center">
+        <div key={step.id} className="flex items-center justify-center md:justify-start">
           <Link
             href={getStepHref(step)}
             className={cn(
-              "inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md",
+              "inline-flex items-center text-sm font-medium rounded-md",
               step.id === currentStep
                 ? "text-black"
                 : step.id < currentStep
